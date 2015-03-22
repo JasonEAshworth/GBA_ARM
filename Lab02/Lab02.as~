@@ -1,0 +1,76 @@
+.text
+.align 2
+.global main
+.set REG_DISPCNT, 0x04000000
+.set REG_DISPSTAT, 0x04000004
+.set BLUE, 0x7C00
+.set GREEN, 0x03E0
+.set RED, 0x001F
+
+
+
+@.set REG_KEYINPUT, 0x04000130
+@.set BTN_A, 1
+.set VRAM, 0x06000000
+@last address = 0x06013FFF
+
+main:
+	ldr R0, =REG_DISPCNT
+	ldr R1, =0x403
+	strh R1, [R0]
+	
+	main_loop:
+		ldr r3, =REG_KEYINPUT
+		ldrh r1, [r3]
+		mvn r0, #0
+		@ands r2, r1, #BTN_A
+		@bleq set_upper_left 
+		
+		@x position of pixel
+		MOV R7, #123
+		
+		@y position of pixel
+		MOV R8, #63
+	
+		@RGB of pixel
+		LDR R9, =RED
+		
+		b draw_pixel
+		
+	looper:
+	
+		b looper
+	
+	
+draw_pixel:
+
+	@ R0 - pixel value
+	STMFD r13!, {r1, r14}
+	
+	ldr R1, =VRAM
+	@load the y value
+	@ldr r4, r8
+	
+	@width
+	MOV R10, #240
+	@will use later...
+	MOV R11, #2
+	
+	@multiply the Y position by the width and store it in R2
+	MUL r2, r8, R10
+	
+	@Adding the x value to it.
+	add r2, r2, R7
+	
+	@multiplying by 2 (store in R11)
+	MUL r3, r2, R11
+	
+	@putting the color into the VRAM plus the offset for the pixel position
+	strh r9, [r1, r3]
+	
+	LDMFD r13!, {r1, r14}
+	mov r15, r14
+.end
+
+
+

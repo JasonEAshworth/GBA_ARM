@@ -1,0 +1,20 @@
+
+To set the path of the arm-elf-as
+
+set PATH=%PATH%;Z:\ETGG4804\GNUARM\GNUARM\bin
+		^^ this is where you unzipped the GNUARM folder.
+
+
+To convert from .as file to .elf file
+
+arm-elf-as -mcpu=arm7tdmi -o <OutPutFile>.elf <InputFile>.as
+
+Then do the ObjCopy
+
+arm-elf-objcopy -O binary <Input>.elf <Output>.bin
+
+to run the .bin file
+
+<insert path here> VisualBoyAdvance-SDL.exe -d <FileName Here>
+
+
