@@ -1,21 +1,26 @@
 # GBA_ARM
 
-University coursework: a set of labs written in ARM assembly (with some C) for the
-Game Boy Advance.
+University coursework: Game Boy Advance programming in ARM7TDMI assembly (with some C),
+building from register basics up to a playable game.
 
-## Layout
+## Labs
 
-- `Lab01/` through `Lab06/`: individual lab assignments
-- `*.h` / `*.png`: sprite data and images used by the labs
-- `VBA*`, `VBA/`: the VisualBoyAdvance emulator and run scripts used to test the ROMs
+- **Lab01:** ARM assembly fundamentals, registers, arithmetic, and control flow
+- **Lab02:** Mode 3 (bitmap) display setup and drawing pixels directly to VRAM
+- **Lab03:** reading the GBA keypad register to handle button input
+- **Lab04:** timers and DMA for efficient data transfers
+- **Lab05:** a complete space shooter written in C, ship movement, firing, patrolling
+  enemies, collision detection, and an explosion animation
+- **Lab06:** an OpenCL GPU blur filter (a separate compute exercise, not GBA)
 
-## Run it
+## Build and run
 
-The labs run in the VisualBoyAdvance emulator (see `Setup.txt` and the `VBA_run.bat` /
-`VBA.txt` helpers).
+Assemble with `arm-elf-as -mcpu=arm7tdmi`, convert with `arm-elf-objcopy`, then run the
+resulting `.bin` in the VisualBoyAdvance emulator. The root `VBA.bat` prompts for a file and
+builds/launches it (see `Setup.txt`).
 
 ## License
 
-The original assembly and C lab code in this repository is [MIT licensed](LICENSE). The
-bundled **VisualBoyAdvance** emulator is third-party software under its own (GPL) license,
-and any course-provided sprite/image assets remain the property of their respective owners.
+My original assembly and C lab code is [MIT licensed](LICENSE). The bundled
+**VisualBoyAdvance** emulator (in `VBA/`) is third-party software under its own (GPL) license,
+and the sprite assets were course-provided and remain their owners' property.
